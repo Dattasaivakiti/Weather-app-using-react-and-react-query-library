@@ -1,0 +1,14 @@
+.hourCard {
+  flex: 1;
+  background-color: hsl(243, 23%, 24%);
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 1rem;
+}
+.image {
+  width: 15%;
+}
+.secondContainer {
+  display: flex;
+}

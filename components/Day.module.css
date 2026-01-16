@@ -1,0 +1,22 @@
+.dayBox {
+  flex: 1;
+
+  background-color: hsl(243, 27%, 20%);
+  border-radius: 4px;
+  text-align: center;
+}
+
+.image {
+  width: 50%;
+}
+.day {
+  font-size: 18px;
+}
+.temp {
+  display: flex;
+  justify-content: space-around;
+}
+.value {
+  font-size: 18px;
+  padding: 0;
+}

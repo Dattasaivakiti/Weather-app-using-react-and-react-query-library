@@ -1,0 +1,17 @@
+.box {
+  background-color: hsl(243, 27%, 20%);
+  flex: 1;
+  height: 10rem;
+  border-radius: 10px;
+}
+.property {
+  padding: 1.2rem;
+  padding-bottom: 0.4rem;
+  color: hsl(240, 6%, 70%);
+  font-size: 20px;
+}
+.value {
+  padding: 0rem 1.2rem;
+  color: hsl(250, 6%, 84%);
+  font-size: 26px;
+}

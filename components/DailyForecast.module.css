@@ -1,0 +1,5 @@
+.column {
+  display: flex;
+  gap: 10px; /* space between each Day */
+  flex-wrap: wrap; /* wrap if container is small */
+}

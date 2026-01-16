@@ -1,0 +1,15 @@
+.header {
+  padding: 0;
+  color: whitesmoke;
+  list-style: none;
+  display: flex;
+  justify-content: space-between;
+}
+.list {
+  list-style: none;
+  font-size: 1rem;
+}
+
+.img {
+  height: 55%;
+}

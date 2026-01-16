@@ -1,0 +1,6 @@
+.container {
+  height: 100%;
+  padding: 1rem 5rem;
+  background-color: hsl(243, 96%, 9%);
+  color: white;
+}

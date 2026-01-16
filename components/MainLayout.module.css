@@ -1,0 +1,8 @@
+.container {
+  padding-top: 3rem;
+  height: 100vh;
+  display: grid;
+  grid-template-rows: 1fr 0.4fr 1fr;
+  grid-template-columns: 2fr 1fr;
+  grid-gap: 1rem;
+}

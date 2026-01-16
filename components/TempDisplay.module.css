@@ -1,0 +1,29 @@
+.temp {
+  background-image: url("/images/bg-today-large.svg");
+  background-repeat: no-repeat;
+  background-size: cover;
+  padding: 0 3rem;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+.img {
+  height: 5rem;
+}
+.seconddiv {
+  display: flex;
+  align-items: center;
+}
+.location {
+  font-size: 2rem;
+  text-transform: capitalize;
+  font-weight: bold;
+}
+.date {
+  color: hsl(250, 6%, 84%);
+  font-size: 1rem;
+  letter-spacing: 0.5px;
+}
+.current {
+  font-size: 4rem;
+}
