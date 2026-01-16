@@ -6,6 +6,7 @@ function Form() {
     location,
     setLocation,
     setSearch,
+    search,
     isErrorCoords,
     coordsError,
     isLoadingCoords,
@@ -18,6 +19,9 @@ function Form() {
     }
   }
 
+  // Only disable input when actively searching (has search query AND is loading)
+  const isSearching = isLoadingCoords && search.trim();
+
   return (
     <div className={styles.container}>
       <p className={styles.paragraph}>How's the sky looking today?</p>
@@ -28,14 +32,14 @@ function Form() {
           value={location}
           placeholder=" Search for a place,country..."
           onChange={(e) => setLocation(e.target.value)}
-          disabled={isLoadingCoords}
+          disabled={isSearching}
         />
         <button
           type="submit"
           className={styles.button}
-          disabled={isLoadingCoords || !location.trim()}
+          disabled={isSearching || !location.trim()}
         >
-          {isLoadingCoords ? "Searching..." : "Search"}
+          {isSearching ? "Searching..." : "Search"}
         </button>
       </form>
       {isErrorCoords && coordsError && (
