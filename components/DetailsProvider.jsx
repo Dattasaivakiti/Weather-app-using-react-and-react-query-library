@@ -9,70 +9,87 @@ function DetailsProvider({ children }) {
   const [location, setLocation] = useState("");
   const [search, setSearch] = useState("");
 
-  // Load saved location from localStorage on mount
+  /* --------------------------------------------
+     Load saved location once on app mount
+  --------------------------------------------- */
   useEffect(() => {
     const saved = localStorage.getItem("weatherData");
-    if (saved) {
-      try {
-        const { location: savedLocation } = JSON.parse(saved);
-        if (savedLocation) {
-          setLocation(savedLocation);
-          setSearch(savedLocation);
-        }
-      } catch (err) {
-        console.error("Error loading saved data:", err);
+    if (!saved) return;
+
+    try {
+      const parsed = JSON.parse(saved);
+      if (parsed?.location) {
+        setLocation(parsed.location);
+        setSearch(parsed.location);
       }
+    } catch (err) {
+      console.error("Failed to read localStorage:", err);
     }
   }, []);
 
-  // Fetch coordinates using React Query
+  /* --------------------------------------------
+     Geocode (ONLY when search is valid)
+  --------------------------------------------- */
   const {
-    data: coord,
+    data: coord = null,
     isLoading: isLoadingCoords,
     isError: isErrorCoords,
     error: coordsError,
   } = useGeocode(search, !!search?.trim());
 
-  // Fetch weather data using React Query
+  const hasCoords = !!coord?.lat && !!coord?.lon;
+
+  /* --------------------------------------------
+     Weather (ONLY when lat & lon exist)
+  --------------------------------------------- */
   const {
-    data: temp,
+    data: temp = null,
     isLoading: isLoadingWeather,
     isError: isErrorWeather,
     error: weatherError,
-  } = useWeather(coord, !!coord?.lat && !!coord?.lon);
+  } = useWeather(coord ?? {}, hasCoords);
 
-  const { data: reverseGeoData } = useReverseGeocode(coord?.lat, coord?.lon);
+  /* --------------------------------------------
+     Reverse Geocode (ONLY when lat & lon exist)
+  --------------------------------------------- */
+  const { data: reverseGeoData = null } = useReverseGeocode(
+    coord?.lat,
+    coord?.lon,
+    hasCoords
+  );
 
-  // Save to localStorage when data changes
+  /* --------------------------------------------
+     Persist weather + location
+  --------------------------------------------- */
   useEffect(() => {
-    if (temp && location) {
-      localStorage.setItem("weatherData", JSON.stringify({ temp, location }));
-    }
+    if (!temp || !location) return;
+
+    localStorage.setItem("weatherData", JSON.stringify({ temp, location }));
   }, [temp, location]);
 
-  // Update location display name when coordinates are fetched
-  useEffect(() => {
-    if (coord?.displayName && !search.includes(coord.displayName)) {
-      // Optionally update location with the full display name from API
-      // This is optional - keeping user's input as-is for now
-    }
-  }, [coord, search]);
-
+  /* --------------------------------------------
+     Context value
+  --------------------------------------------- */
   return (
     <Details.Provider
       value={{
+        // Input state
         location,
         setLocation,
-        coord: coord || {},
         search,
         setSearch,
+
+        // Data
+        coord,
+        temp,
         reverseGeoData,
-        temp: temp || {},
-        // Loading and error states
+
+        // Combined states
         isLoading: isLoadingCoords || isLoadingWeather,
         isError: isErrorCoords || isErrorWeather,
         error: coordsError || weatherError,
-        // Individual states for more granular control
+
+        // Granular states
         isLoadingCoords,
         isLoadingWeather,
         isErrorCoords,
