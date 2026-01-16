@@ -118,7 +118,7 @@ function HourlyForecast() {
           key={index}
           hour={weather.hour}
           hourTemp={weather.hourTemp}
-          hWeatherCode={weather.HweatherCode}
+          hWeatherCode={weather.hWeatherCode}
           isDay={isDay}
         />
       ))}

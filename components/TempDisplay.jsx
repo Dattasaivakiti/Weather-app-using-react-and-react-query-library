@@ -38,6 +38,7 @@ export default Tempdisplay;*/
 import styles from "./TempDisplay.module.css";
 import { Details } from "./DetailsProvider";
 import { useContext } from "react";
+import { getWeatherIcon } from "../utility/getWetherIcon";
 
 function Tempdisplay() {
   const {
@@ -75,12 +76,17 @@ function Tempdisplay() {
 
   const temps = temp.hourly.temperature_2m;
   const times = temp.hourly.time;
+  const weatherCodes = temp.hourly.weather_code;
 
   const now = new Date();
   const currentHourISO = now.toISOString().slice(0, 13) + ":00";
   const index = times.findIndex((t) => t === currentHourISO);
 
   const currentTemp = index !== -1 ? temps[index] : null;
+  const currentWeatherCode = index !== -1 ? weatherCodes[index] : 0;
+  const isDay = temp.current?.is_day ?? true;
+  
+  const weatherIconSrc = getWeatherIcon(currentWeatherCode, isDay);
 
   return (
     <div className={styles.temp}>
@@ -92,8 +98,8 @@ function Tempdisplay() {
       <div className={styles.seconddiv}>
         <img
           className={styles.img}
-          src="/weatherIcons/icon-sunny.webp"
-          alt="sunny"
+          src={weatherIconSrc}
+          alt="Current weather"
         />
 
         <p className={styles.current}>

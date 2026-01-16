@@ -1,14 +1,14 @@
 import { getWeatherIcon } from "../utility/getWetherIcon";
 import styles from "./Day.module.css";
 function Day({ day, maxTemp, minTemp, weatherCode, isDay }) {
-  const image = getWeatherIcon(weatherCode, isDay);
+  const imageSrc = getWeatherIcon(weatherCode, isDay);
   return (
     <div className={styles.dayBox}>
       <p className={styles.day}>{day}</p>
       <img
         className={styles.image}
-        src={`/weatherIcons/${image}`}
-        alt={image}
+        src={imageSrc}
+        alt={`Weather icon for ${day}`}
       />
       <p className={styles.temp}>
         <span className={styles.value}>
