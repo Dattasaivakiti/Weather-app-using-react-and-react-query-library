@@ -37,7 +37,7 @@ export function useGeocode(search) {
         displayName: data[0].display_name,
       };
     },
-    enabled: !!search, // Only run query when search is provided
+    enabled: !!search?.trim(), // Only run query when search is provided
     staleTime: 10 * 60 * 1000, // Coordinates don't change often, cache for 10 minutes
     retry: 1,
   });

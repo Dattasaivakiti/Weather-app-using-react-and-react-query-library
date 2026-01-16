@@ -31,7 +31,7 @@ function DetailsProvider({ children }) {
     isLoading: isLoadingCoords,
     isError: isErrorCoords,
     error: coordsError,
-  } = useGeocode(search);
+  } = useGeocode(search, !!search);
 
   // Fetch weather data using React Query
   const {
