@@ -31,7 +31,7 @@ function DetailsProvider({ children }) {
     isLoading: isLoadingCoords,
     isError: isErrorCoords,
     error: coordsError,
-  } = useGeocode(search, !!search);
+  } = useGeocode(search, !!search?.trim());
 
   // Fetch weather data using React Query
   const {
@@ -39,7 +39,7 @@ function DetailsProvider({ children }) {
     isLoading: isLoadingWeather,
     isError: isErrorWeather,
     error: weatherError,
-  } = useWeather(coord || {}, !!coord);
+  } = useWeather(coord, !!coord?.lat && !!coord?.lon);
 
   const { data: reverseGeoData } = useReverseGeocode(coord?.lat, coord?.lon);
 
